@@ -53,14 +53,14 @@ export default {
         // }
         if (!isValid) return
         axios.post('http://localhost:8888/api/private/v1/login', this.form).then(res => {
-          const { meta: { status, msg }, data: { token } } = res.data
+          const { meta: { status, msg }, data } = res.data
           if (status === 200) {
             this.$message({
               message: '登录成功',
               type: 'success'
             })
             // 把token存起来
-            localStorage.setItem('token', token)
+            localStorage.setItem('token', data.token)
             // 跳转到首页
             this.$router.push('/')
           } else {
@@ -76,7 +76,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login {
   height: 100%;
   width: 100%;
