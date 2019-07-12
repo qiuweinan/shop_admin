@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data () {
     return {
@@ -52,8 +51,8 @@ export default {
         //   console.log('no')
         // }
         if (!isValid) return
-        axios.post('http://localhost:8888/api/private/v1/login', this.form).then(res => {
-          const { meta: { status, msg }, data } = res.data
+        this.$axios.post('login', this.form).then(res => {
+          const { meta: { status, msg }, data } = res
           if (status === 200) {
             this.$message({
               message: '登录成功',
