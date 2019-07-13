@@ -7,7 +7,7 @@
           <el-input v-model="form.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input v-model="form.password" type="password"></el-input>
+          <el-input v-model="form.password" type="password" @keyup.enter.native="loginEnter"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="login">登录</el-button>
@@ -42,15 +42,6 @@ export default {
   methods: {
     login () {
       this.$refs.form.validate(isValid => {
-        // if (valid) {
-        //   axios({
-        //     method: 'post',
-        //     url: 'http://localhost:8888/api/private/v1/login',
-        //     data: this.form
-        //   })
-        // } else {
-        //   console.log('no')
-        // }
         if (!isValid) return
         axios.post('http://localhost:8888/api/private/v1/login', this.form).then(res => {
           const { meta: { status, msg }, data } = res.data
@@ -71,6 +62,9 @@ export default {
     },
     reset () {
       this.$refs.form.resetFields()
+    },
+    loginEnter () {
+      this.login()
     }
   }
 }
