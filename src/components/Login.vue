@@ -29,7 +29,7 @@ export default {
       rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 5, max: 8, message: '长度在 5 到 8 个字符', trigger: 'blur' }
+          { min: 5, max: 16, message: '长度在 5 到 8 个字符', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -39,34 +39,22 @@ export default {
     }
   },
   methods: {
-    login () {
-      this.$refs.form.validate(isValid => {
-        // if (valid) {
-        //   axios({
-        //     method: 'post',
-        //     url: 'http://localhost:8888/api/private/v1/login',
-        //     data: this.form
-        //   })
-        // } else {
-        //   console.log('no')
-        // }
-        if (!isValid) return
-        this.$axios.post('login', this.form).then(res => {
-          const { meta: { status, msg }, data } = res
-          if (status === 200) {
-            this.$message({
-              message: '登录成功',
-              type: 'success'
-            })
-            // 把token存起来
-            localStorage.setItem('token', data.token)
-            // 跳转到首页
-            this.$router.push('/')
-          } else {
-            this.$message.error(msg)
-          }
+    async login () {
+      await this.$refs.form.validate()
+      const res = await this.$axios.post('login', this.form)
+      const { meta, data } = res
+      if (meta.status === 200) {
+        this.$message({
+          message: '登录成功',
+          type: 'success'
         })
-      })
+        // 把token存起来
+        localStorage.setItem('token', data.token)
+        // 跳转到首页
+        this.$router.push('/')
+      } else {
+        this.$message.error(meta.msg)
+      }
     },
     reset () {
       this.$refs.form.resetFields()
