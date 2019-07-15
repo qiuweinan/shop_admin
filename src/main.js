@@ -13,7 +13,6 @@ axios.defaults.baseURL = 'http://localhost:8888/api/private/v1/'
 // 配置axios的请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
-  // console.log('请求到了哟', config.headers.Authorization)
   // 统一的给config设置 token
   config.headers.Authorization = localStorage.getItem('token')
   return config

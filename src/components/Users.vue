@@ -197,7 +197,7 @@ export default {
           this.$refs.form.resetFields()
           // 隐藏对话框
           this.dialogVisible = false
-          // 重新渲染第一页
+          // 重新渲染
           this.total++
           this.pagenum = Math.ceil(this.total / this.pagesize)
 
