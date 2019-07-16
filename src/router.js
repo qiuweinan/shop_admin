@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './components/Login.vue'
 import Index from './components/index.vue'
-import Users from './components/Users.vue'
-import Rights from './components/Rights.vue'
+import Users from './components/users/Users.vue'
+import Rights from './components/rights/Rights.vue'
+import Roles from './components/rights/Roles.vue'
 
 Vue.use(Router)
 
@@ -25,7 +26,8 @@ const router = new Router({
       name: 'index',
       children: [
         { path: '/users', name: 'users', component: Users },
-        { path: '/rights', name: 'rights', component: Rights }
+        { path: '/rights', name: 'rights', component: Rights },
+        { path: '/roles', name: 'roles', component: Roles }
       ]
     }
   ]

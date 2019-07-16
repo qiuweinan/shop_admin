@@ -8,7 +8,7 @@
     </el-breadcrumb>
     <!-- 表格 -->
     <el-table :data="rightList">
-      <el-table-column type="index" wideh="50" :index="indexMethod"></el-table-column>
+      <el-table-column type="index" wideh="50"></el-table-column>
       <el-table-column label="权限名称" prop="authName"></el-table-column>
       <el-table-column label="路径" prop="path"></el-table-column>
       <el-table-column label="层级">

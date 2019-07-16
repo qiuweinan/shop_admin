@@ -250,13 +250,6 @@ export default {
 
 <style lang="scss" scoped>
   .users {
-    .el-breadcrumb {
-      height: 50px;
-      line-height: 50px;
-      padding-left: 6px;
-      background-color: #d4dae0;
-      font-size: 16px;
-    }
     .icn {
       position: absolute;
       left: 162px;
