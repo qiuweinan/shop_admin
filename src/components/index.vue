@@ -13,35 +13,21 @@
     <el-container>
       <el-aside width="200px">
         <el-menu
-          default-active="1-1"
-          class="el-menu-vertical-demo"
+          :default-active="current"
+          unique-opened
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b"
           router
         >
-          <el-submenu index="1">
+          <el-submenu v-for="menu in menuList" :key="menu.id" :index="menu.path">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>用户管理</span>
+              <span>{{menu.authName}}</span>
             </template>
-            <el-menu-item index="users">
+            <el-menu-item v-for="item in menu.children" :key="item.id" :index="item.path">
               <i class="el-icon-menu"></i>
-              <span slot="title">用户列表</span>
-            </el-menu-item>
-          </el-submenu>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>权限管理</span>
-            </template>
-            <el-menu-item index="roles">
-              <i class="el-icon-menu"></i>
-              <span slot="title">角色列表</span>
-            </el-menu-item>
-            <el-menu-item index="rights">
-              <i class="el-icon-menu"></i>
-              <span slot="title">权限列表</span>
+              <span slot="title">{{item.authName}}</span>
             </el-menu-item>
           </el-submenu>
         </el-menu>
@@ -55,6 +41,21 @@
 
 <script>
 export default {
+  data () {
+    return {
+      menuList: []
+    }
+  },
+  async created () {
+    const res = await this.$axios.get('menus')
+    // console.log(res)
+    this.menuList = res.data
+  },
+  computed: {
+    current () {
+      return this.$route.path.slice(1)
+    }
+  },
   methods: {
     logout () {
       this.$confirm('你确定要退出吗?', '温馨提示', {
